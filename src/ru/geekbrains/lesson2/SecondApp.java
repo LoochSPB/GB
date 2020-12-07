@@ -61,16 +61,15 @@ public class SecondApp {
                 if (i==j) {
                     dArray[i][j] = 1;
                 }
+                if (i!=1 && j!=1) {
+                    dArray[i][j] = 1;
+                }
                 System.out.println(dArray[i][j]);
             }
 
         }
 
     }
-
-
-
-
 
 }
 
