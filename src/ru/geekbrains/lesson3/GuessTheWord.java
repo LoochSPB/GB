@@ -16,6 +16,7 @@ package ru.geekbrains.lesson3;
 //         Играем до тех пор, пока игрок не отгадает слово
 //         Используем только маленькие буквы
 
+import java.sql.SQLOutput;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
@@ -29,38 +30,39 @@ public class GuessTheWord {
         int takeTheWordFromArray = ranWords.nextInt(words.length);
         String hiddenWord = words[takeTheWordFromArray];
         Scanner scan = new Scanner (System.in);
-//        System.out.println("Здравствуйте. Как Вас зовут?");
-//        String name = scan.nextLine();
-//        System.out.println(name + ", сыграем в игру Угадайте слово.");
+        System.out.println("Здравствуйте. Как Вас зовут?");
+        String name = scan.nextLine();
+        System.out.println(name + ", сыграем в игру Угадайте слово. Компьютер загадает слово. Как Вы думаете, какое?");
         boolean wordCheck;
         char [] hide = new char[15];
         for (int i = 0; i < hide.length; i++) {
             hide [i] = '#';
         }
         do {
-            for (int i = 0; i < 8; i++) {
+            for (int i = 0; i < hiddenWord.length(); i++) {
+
+
                 System.out.println("Введите слово на английском маленькими буквами.");
                 String answeredWord = scan.nextLine();
                 wordCheck = hiddenWord.equals(answeredWord);
+
                 if (wordCheck) {
-                    System.out.println("Congratulations!");
+                    System.out.println("Поздравляю!!! " + name + "!!! Это верный ответ");
                     break;
-                }
-                else if (!wordCheck) {
-                    for (int j = 0; j <= i; j++) {
-                        hide [j] = hiddenWord.charAt(j);
+                } else if (!wordCheck) {
+                    for (int j = 0; j < i; j++) {
+                        hide[j] = hiddenWord.charAt(j);
                     }
-                    System.out.println("Try again.");
-                    System.out.println("Let me help you. The part of the word is " + Arrays.toString(hide) + ".");
+                    System.out.println("Неверно.");
+                    System.out.println(name + ", попробуйте еще раз.");
+                    System.out.println("Давайте я Вам помогу. Открою часть слова: ");
+                    for (int j = 0; j < hide.length; j++) {
+                        System.out.print(hide[j]);
+                    }
+                    System.out.println(" ");
+
                 }
             }
         }while (wordCheck = true);
-
-
-
-
-
-
-
     }
 }
