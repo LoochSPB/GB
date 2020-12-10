@@ -35,22 +35,18 @@ public class GuessTheWord {
         System.out.println(name + ", сыграем в игру Угадайте слово. Компьютер загадает слово. Как Вы думаете, какое?");
         boolean wordCheck;
         char [] hide = new char[15];
-        for (int i = 0; i < hide.length; i++) {
-            hide [i] = '#';
-        }
+        Arrays.fill(hide,'#');
         do {
             for (int i = 0; i < hiddenWord.length(); i++) {
-
-
                 System.out.println("Введите слово на английском маленькими буквами.");
                 String answeredWord = scan.nextLine();
                 wordCheck = hiddenWord.equals(answeredWord);
 
                 if (wordCheck) {
-                    System.out.println("Поздравляю!!! " + name + "!!! Это верный ответ");
-                    break;
+                    System.out.println("Поздравляю, " + name + "!!! Это верный ответ");
+                    return;
                 } else if (!wordCheck) {
-                    for (int j = 0; j < i; j++) {
+                    for (int j = 0; j <= i; j++) {
                         hide[j] = hiddenWord.charAt(j);
                     }
                     System.out.println("Неверно.");

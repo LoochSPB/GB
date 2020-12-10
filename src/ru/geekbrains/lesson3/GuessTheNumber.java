@@ -27,7 +27,7 @@ public class GuessTheNumber {
                     break;
                 }
                 else if (i == 2) {
-                    System.out.println(name + ", к соалению Вы проиграли");
+                    System.out.println(name + ", к сожалению Вы проиграли");
                     break;
                 }
                 else if (userNumber < randomNumber) {
