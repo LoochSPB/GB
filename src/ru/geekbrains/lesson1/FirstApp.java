@@ -10,7 +10,7 @@ public class FirstApp {
         posOrNeg(15);
         System.out.println("Задание 6: " + negativeNumCheck(-1));
         printHelloName("Илья");
-        yearCheck(800);
+        yearCheck(100);
     }
 
     static void variables () {
