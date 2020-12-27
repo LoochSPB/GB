@@ -5,7 +5,8 @@ import java.util.Scanner;
 
 public class TicTacToe {
 
-    private static final int SIZE = 3;
+    private static final int SIZE = 5;
+    private static final int DOT_TO_WIN = 4;
     private static final char [][] map = new char [SIZE] [SIZE];
     private static final char DOT_EMPTY = '·';
     private static final char DOT_X = 'X';
@@ -20,7 +21,6 @@ public class TicTacToe {
         mapPrint();
 
         while(true) {
-
             userTurn();
             mapPrint();
             if (winCheck(DOT_X)) { break;}
@@ -39,35 +39,147 @@ public class TicTacToe {
     }
 
     private static boolean winCheck(char symbol) {
+        if (checkRawColumn(symbol,DOT_TO_WIN)) {
+            System.out.println("Победили " + symbol);
+            return true;
+        }
+        if (checkDiag(symbol,DOT_TO_WIN)) {
+            System.out.println("Победили " + symbol);
+            return true;
+        }
+        if (checkwithdraw ()){
+            System.out.println("Ничья");
+            return true;
+        }
+        return false;
 
-        //TODO: сделать проверку на победу по вертикали и диагонали при помощи цикла
+
+    }
+
+    private static boolean checkwithdraw() {
+        int withdraw = 0;
         for (int i = 0; i < SIZE; i++) {
             for (int j = 0; j < SIZE; j++) {
+                withdraw = (map [i][j] == DOT_EMPTY) ? withdraw + 1 : withdraw;
+            }
+        }
+        if (withdraw == 0) {
+            return true;
+        }
+        return false;
+    }
 
-                if (map [i][j] == symbol && map [i++] [j++] == symbol){
-                    System.out.println("Победили I++ J++");         //TODO: Исправить текст при поздравдении.
-                    return true;
-
+    private static boolean checkDiag (char symbol, int DOT_TO_WIN) {
+        int diagCounter = 0;
+        for (int i = 0; i < SIZE; i++) {
+            diagCounter = (map [i][i]==symbol) ? diagCounter + 1 : 0;
+            if (diagCounter == DOT_TO_WIN) {
+                return true;
+            }
+        }
+        for (int i = 0; i < SIZE; i++) {
+            diagCounter = (map [i][SIZE - 1 - i] == symbol) ? diagCounter + 1 : 0;
+            if (diagCounter == DOT_TO_WIN) {
+                return true;
+            }
+        }
+        for (int i = 1; i < SIZE; i++) {
+            diagCounter = (map [i][SIZE - i] == symbol) ? diagCounter + 1 : 0;
+            if (diagCounter == DOT_TO_WIN) {
+                return true;
+            }
+        }
+        for (int i = 1; i < SIZE; i++) {
+            diagCounter = (map [i][i - 1] == symbol) ? diagCounter + 1 : 0;
+            if (diagCounter == DOT_TO_WIN) {
+                return true;
+            }
+        }
+        for (int i = 0; i < SIZE - 1; i++) {
+            diagCounter = (map [i][i + 1] == symbol) ? diagCounter + 1 : 0;
+            if (diagCounter == DOT_TO_WIN) {
+                return true;
+            }
+        }
+        for (int i = 0; i < SIZE - 1; i++) {
+            diagCounter = (map [i][SIZE - 2 - i] == symbol) ? diagCounter + 1 : 0;
+            if (diagCounter == DOT_TO_WIN) {
+                return true;
+            }
+        }
+    return false;
+    }
+    private static void compTurnFind (char symbol) {
+        int diagCounter = 0;
+        for (int i = 0; i < SIZE; i++) {
+            diagCounter = (map [i][i]==symbol) ? diagCounter + 1 : 0;
+            if (diagCounter == DOT_TO_WIN - 1) {
+                map [i+1][i+1] = DOT_O;
+            }
+        }
+        for (int i = 0; i < SIZE; i++) {
+            diagCounter = (map [i][SIZE - 1 - i] == symbol) ? diagCounter + 1 : 0;
+            if (diagCounter == DOT_TO_WIN - 1) {
+                map [i+1][SIZE - 1 - (i+1)] = DOT_O;
+            }
+        }
+        for (int i = 1; i < SIZE; i++) {
+            diagCounter = (map [i][SIZE - i] == symbol) ? diagCounter + 1 : 0;
+            if (diagCounter == DOT_TO_WIN - 1) {
+                map [i+1][SIZE - (i+1)] = DOT_O;
+            }
+        }
+        for (int i = 1; i < SIZE; i++) {
+            diagCounter = (map [i][i - 1] == symbol) ? diagCounter + 1 : 0;
+            if (diagCounter == DOT_TO_WIN - 1) {
+                map [i+1][i] = DOT_O;
+            }
+        }
+        for (int i = 0; i < SIZE - 1; i++) {
+            diagCounter = (map [i][i + 1] == symbol) ? diagCounter + 1 : 0;
+            if (diagCounter == DOT_TO_WIN - 1) {
+                map [i+1][i + 1 + 1] = DOT_O;
+            }
+        }
+        for (int i = 0; i < SIZE - 1; i++) {
+            diagCounter = (map [i][SIZE - 2 - i] == symbol) ? diagCounter + 1 : 0;
+            if (diagCounter == DOT_TO_WIN) {
+                map [i + 1][SIZE - 2 - (i + 1)] = DOT_O;
+            }
+        }
+        for (int i = 0; i < SIZE; i++) {
+            int rawCounter = 0;
+            int columnCounter = 0;
+            for (int j = 0; j < SIZE; j++) {
+                rawCounter = (map [i][j] == symbol) ? rawCounter + 1 :  0;
+                if (rawCounter == DOT_TO_WIN - 1) {
+                    map [i] [j+1] = DOT_O;
                 }
-                if (map [i][j] == symbol && map [i++] [j] == symbol){
-                    System.out.println("Победили I++ J");         //TODO: Исправить текст при поздравдении.
+                columnCounter = (map [j][i] == symbol) ? columnCounter + 1 :  0;
+                if (columnCounter == DOT_TO_WIN - 1) {
+                    map [j+1] [i] = DOT_O;
+                }
+
+            }
+        }
+    }
+
+    private static boolean checkRawColumn(char symbol, int DOT_TO_WIN) {
+        for (int i = 0; i < SIZE; i++) {
+            int rawCounter = 0;
+            int columnCounter = 0;
+            for (int j = 0; j < SIZE; j++) {
+                rawCounter = (map [i][j] == symbol) ? rawCounter + 1 :  0;
+                columnCounter = (map [j][i] == symbol) ? columnCounter + 1 :  0;
+                if (rawCounter == DOT_TO_WIN) {
+                    return true;
+                }
+                if (columnCounter == DOT_TO_WIN) {
                     return true;
                 }
             }
         }
-
-
-        
-
-
-        if (map [0][0] == symbol && map [0][1] == symbol && map [0] [2] == symbol) {return true;}
-        if (map [1][0] == symbol && map [1][1] == symbol && map [1] [2] == symbol) {return true;}
-        if (map [2][0] == symbol && map [2][1] == symbol && map [2] [2] == symbol) {return true;}
-
-
-    return false;
-
-
+        return false;
     }
 
     private static void userTurn() {
@@ -154,14 +266,19 @@ public class TicTacToe {
     }
 
     private static void compTurn() {
-        int line = -1;
-        int column = -1;
-        while (!(isCompTurnValid(line,column))) {
-            Random rand = new Random();
-            line = rand.nextInt(SIZE);
-            column = rand.nextInt(SIZE);
+        if (checkDiag(DOT_X,DOT_TO_WIN-1) || checkRawColumn(DOT_X, DOT_TO_WIN-1)) {
+            compTurnFind(DOT_X);
         }
-        map[line][column] = DOT_O;
+        else {
+            int line = -1;
+            int column = -1;
+            while (!(isCompTurnValid(line, column))) {
+                Random rand = new Random();
+                line = rand.nextInt(SIZE);
+                column = rand.nextInt(SIZE);
+            }
+            map[line][column] = DOT_O;
+        }
         System.out.println("Компьтер сделал свой ход. Теперь Вы.");
     }
 
