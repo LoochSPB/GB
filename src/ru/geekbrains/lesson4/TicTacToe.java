@@ -143,7 +143,7 @@ public class TicTacToe {
         }
         for (int i = 0; i < SIZE - 1; i++) {
             diagCounter = (map [i][SIZE - 2 - i] == symbol) ? diagCounter + 1 : 0;
-            if (diagCounter == DOT_TO_WIN) {
+            if (diagCounter == DOT_TO_WIN - 1) {
                 map [i + 1][SIZE - 2 - (i + 1)] = DOT_O;
             }
         }
