@@ -1,9 +1,9 @@
 package ru.geekbrains.lesson6;
 
-public class Cat extends Animal {
-
-    private int jumpLimit = (int) (2 + (Math.random() * 10));
-    private int runLimit = (int) (200 + (Math.random() * 1000));
+public class Dog extends Animal {
+    private int jumpLimit = (int) (2 + (Math.random() * 2));
+    private int runLimit = (int) (500 + (Math.random() * 200));
+    private int swimLimit = (int) (10 + (Math.random() * 200));
 
 
     @Override
@@ -21,7 +21,8 @@ public class Cat extends Animal {
 
     @Override
     public void swim(int distance) {
-        System.out.println("Cats can not swim!");
+        boolean isJump = distance <= swimLimit;
+        System.out.println("Jump: " + isJump);
     }
 
 }
