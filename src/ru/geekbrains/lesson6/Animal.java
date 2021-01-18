@@ -1,14 +1,41 @@
 package ru.geekbrains.lesson6;
 
-import com.sun.jmx.snmp.internal.SnmpAccessControlModel;
-
 public abstract class Animal {
 
-    protected Animal() {
+    protected int runLimit;
+    protected int jumpLimit;
+    protected int swimLimit;
+
+    private static int counter;
+
+    public Animal(int runLimit, int jumpLimit, int swimLimit) {
+        this.runLimit = runLimit;
+        this.jumpLimit = jumpLimit;
+        this.swimLimit = swimLimit;
+        counter++;
     }
 
-    public abstract void run (int distance);
-    public abstract void jump (int height);
-    public abstract void swim (int distance);
-
+    public static int getCounter() {
+        return counter;
     }
+
+    public Animal() {
+    }
+
+    public abstract boolean isRun(int distance);
+    public abstract boolean isJump(int height);
+    public abstract boolean isSwim(int distance);
+
+    public void printInfo (){
+        System.out.println(this);
+    }
+
+    @Override
+    public String toString() {
+        return "Animal{" +
+                "runLimit=" + runLimit +
+                ", jumpLimit=" + jumpLimit +
+                ", swimLimit=" + swimLimit +
+                '}';
+    }
+}

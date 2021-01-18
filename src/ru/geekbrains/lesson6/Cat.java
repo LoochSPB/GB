@@ -2,26 +2,49 @@ package ru.geekbrains.lesson6;
 
 public class Cat extends Animal {
 
-    private int jumpLimit = (int) (2 + (Math.random() * 10));
-    private int runLimit = (int) (200 + (Math.random() * 1000));
+    private static final int JUMP_LIMIT = 2;
+    private static final int RUN_LIMIT = 300;
+    private static final int SWIM_LIMIT = 0;
 
+    private static int counter;
 
-    @Override
-    public void run (int distance) {
-        boolean isRun = distance <= runLimit;
-        System.out.println("run: " + isRun);
+    public Cat(int runLimit, int jumpLimit) {
+        super(runLimit, jumpLimit, SWIM_LIMIT);
+        counter++;
+    }
 
+    public static int getCounter() {
+        return counter;
+    }
+
+    public Cat() {
+        this(RUN_LIMIT, JUMP_LIMIT);
     }
 
     @Override
-    public void jump(int height) {
-        boolean isJump = height <= jumpLimit;
-        System.out.println("Jump: " + isJump);
+    public boolean isRun(int distance) {
+        if (distance <= this.runLimit) {
+            System.out.printf("Кошка смогла пробежать расстояние %d, максимальное расстояние %d%n", distance, runLimit);
+            return true;
+        }
+        System.out.printf("Кошка не смогла пробежать расстояние %d, максимальное расстояние %d%n", distance, runLimit);
+        return false;
     }
 
     @Override
-    public void swim(int distance) {
-        System.out.println("Cats can not swim!");
+    public boolean isJump(int height) {
+        if (height <= this.jumpLimit) {
+            System.out.printf("Кошка смогла прыгнуть на высоту %d, максимальное расстояние %d%n", height, jumpLimit);
+            return true;
+        }
+        System.out.printf("Кошка не смогла прыгнуть на высоту %d, максимальное расстояние %d%n", height, jumpLimit);
+        return false;
+    }
+
+    @Override
+    public boolean isSwim(int distance) {
+        System.out.println("Кошки не умеют плавать");
+        return false;
     }
 
 }
