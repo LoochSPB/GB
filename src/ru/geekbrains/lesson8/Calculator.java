@@ -17,12 +17,18 @@ public class Calculator extends JFrame {
         setSize(400, 300);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
+        setLayout(new BorderLayout());
 
+        JPanel panelNorth = new JPanel();
+        add(panelNorth,BorderLayout.NORTH);
+
+        JPanel panelSouth = new JPanel();
+        add(panelSouth,BorderLayout.CENTER);
 
         JLabel label = new JLabel();
-        add(label);
+        panelNorth.add(label);
 
-        setLayout(new GridLayout(3, 5));
+        panelSouth.setLayout(new GridLayout(3, 5));
 
         JButton[] jbs = new JButton[14];
 
@@ -59,7 +65,7 @@ public class Calculator extends JFrame {
                 }
 
             });
-            add(jbs[i]);
+            panelSouth.add(jbs[i]);
         }
 
         setVisible(true);
